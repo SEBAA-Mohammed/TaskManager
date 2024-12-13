@@ -1,6 +1,7 @@
 {
     "appId": "com.mohammedsebaâ.taskManager",
     "files": ["dist-electron", "dist-react"],
+    "icon": "./PC taskManager.png",
     "mac": {
       "target": "dmg"
     },
