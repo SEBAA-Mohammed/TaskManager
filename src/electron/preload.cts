@@ -5,14 +5,16 @@ electron.contextBridge.exposeInMainWorld('electron', {
     //@ts-ignore
 
   subscribeStatistics: (callback) =>
-    ipcOn('statistics', (stats) => {
+    electron.ipcRenderer.on('statistics', (stats) => {
       callback(stats);
     }),
-  subscribeChangeView: (callback) =>
-    ipcOn('changeView', (view) => {
-      callback(view);
-    }),
-  getStaticData: () => ipcInvoke('getStaticData'),
-  sendFrameAction: (payload) => ipcSend('sendFrameAction', payload),
-} satisfies Window['electron']);
+//   subscribeChangeView: (callback) =>
+//     electron.ipcRenderer.on('changeView', (view) => {
+//       callback(view);
+//     }),
+  getStaticData: () => electron.ipcRenderer.invoke("getStaticData"),
+//   sendFrameAction: (payload) => ipcSend('sendFrameAction', payload),
+}
+//  satisfies Window['electron']
+);
 

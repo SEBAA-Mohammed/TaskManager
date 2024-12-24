@@ -1,7 +1,8 @@
-import {app , BrowserWindow} from 'electron'
+import {app , BrowserWindow, ipcMain} from 'electron'
 import path from 'path'
 import { isDev } from './util.js';
 import { pollResources } from './resourceManager.js';
+import { getStaticData } from './resourceManager.js';
 
 app.on('ready', () => {
     const win = new BrowserWindow({
@@ -13,5 +14,8 @@ app.on('ready', () => {
       } else {
     win.loadFile(path.join(app.getAppPath() , 'dist-react/index.html'))
 }
-pollResources();
+pollResources(win);
+ipcMain.handle('getStaticData', () => {
+  return getStaticData();
+});
 });

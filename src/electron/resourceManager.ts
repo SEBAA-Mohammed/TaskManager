@@ -1,15 +1,20 @@
-import osUtils from 'os-utils';
-import os from 'os';
-import fs from 'fs';
+import osUtils from "os-utils";
+import os from "os";
+import fs from "fs";
+import { BrowserWindow } from "electron";
 
 const POLLING_INTERVAL = 500;
 
-export function pollResources() {
+export function pollResources(win: BrowserWindow) {
   setInterval(async () => {
     const cpuUsage = await getCpuUsage();
     const ramUsage = getRamUsage();
     const storageData = getStorageData();
-    console.log({cpuUsage,ramUsage,storageUsage: storageData.usage})
+    win.webContents.send("statistics", {
+      cpuUsage,
+      ramUsage,
+      storageUsage: storageData.usage,
+    });
   }, POLLING_INTERVAL);
 }
 
@@ -20,7 +25,7 @@ export function getStaticData() {
 
   return {
     totalStorage,
-    cpuModel,   
+    cpuModel,
     totalMemoryGB,
   };
 }
@@ -37,7 +42,7 @@ function getRamUsage() {
 
 function getStorageData() {
   // requires node 18
-  const stats = fs.statfsSync(process.platform === 'win32' ? 'C://' : '/');
+  const stats = fs.statfsSync(process.platform === "win32" ? "C://" : "/");
   const total = stats.bsize * stats.blocks;
   const free = stats.bsize * stats.bfree;
 
