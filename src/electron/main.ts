@@ -4,7 +4,10 @@ import { isDev } from './util.js';
 import { pollResources } from './resourceManager.js';
 
 app.on('ready', () => {
-    const win = new BrowserWindow({})
+    const win = new BrowserWindow({
+      title:"Task Manager",
+      
+    })
     if (isDev()) {
         win.loadURL('http://localhost:3000');
       } else {

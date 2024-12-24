@@ -20,7 +20,7 @@ export function getStaticData() {
 
   return {
     totalStorage,
-    cpuModel,
+    cpuModel,   
     totalMemoryGB,
   };
 }
