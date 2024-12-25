@@ -19,8 +19,8 @@ app.on('ready', () => {
       } else {
     win.loadFile(path.join(app.getAppPath() , 'dist-react/index.html'))
 }
-pollResources(win);
-ipcMain.handle('getStaticData', () => {
-  return getStaticData();
-});
+ pollResources(win);
+  ipcMain.handle('getStaticData', () => {
+    return getStaticData();
+  });
 });

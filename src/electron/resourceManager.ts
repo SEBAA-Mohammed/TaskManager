@@ -16,7 +16,7 @@ export function pollResources(win: BrowserWindow) {
       storageUsage: storageData.usage,
     });
   }, POLLING_INTERVAL);
-}
+}   
 
 export function getStaticData() {
   const totalStorage = getStorageData().total;
