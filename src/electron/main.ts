@@ -3,10 +3,15 @@ import path from 'path'
 import { isDev } from './util.js';
 import { pollResources } from './resourceManager.js';
 import { getStaticData } from './resourceManager.js';
+import { getPreloadPath } from './pathResolver.js';
+
 
 app.on('ready', () => {
     const win = new BrowserWindow({
       title:"Task Manager",
+      webPreferences: {
+        preload: getPreloadPath(),
+      },
       
     })
     if (isDev()) {
