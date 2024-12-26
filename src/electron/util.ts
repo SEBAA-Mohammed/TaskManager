@@ -11,7 +11,7 @@ export function ipcMainHandle<Key extends keyof EventPayloadMapping>(
     handler: () => EventPayloadMapping[Key]
   ) {
     ipcMain.handle(key, (event) =>{
-        //@ts-ignore
+        //@ts-expect-error : senderFrame might be null
         validateEventFrame(event.senderFrame);
         return handler();
     } );
