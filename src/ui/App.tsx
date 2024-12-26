@@ -1,17 +1,23 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useStatistics } from './useStatistics';
+import { useMemo } from 'react';
+import { Chart } from './Chart';
 
 function App() {
-  window.electron.getStaticData();
-  useEffect(()=>{
-    window.electron.subscribeStatistics((stats)=>console.log(stats))
-  },[]);
+  const statistics = useStatistics(20);
+  const cpuUsages = useMemo(
+    () => statistics.map((stat) => stat.cpuUsage),
+    [statistics]
+  );
 
   return (
     <>
       <div>
-        
+        <div style={{height:140}}>
+            <Chart data={cpuUsages} maxDataPoints={20}/>
+        </div>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
