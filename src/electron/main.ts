@@ -4,6 +4,7 @@ import { isDev } from './util.js';
 import { pollResources } from './resourceManager.js';
 import { getStaticData } from './resourceManager.js';
 import { getPreloadPath, getUIPath } from './pathResolver.js';
+import { createTray } from './tray.js';
 
 
 app.on('ready', () => {
@@ -23,7 +24,7 @@ app.on('ready', () => {
   ipcMain.handle('getStaticData', () => {
     return getStaticData();
   });
-
+  createTray(win);
   handleCloseEvents(win);
 });
 
