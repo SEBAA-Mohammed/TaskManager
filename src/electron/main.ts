@@ -5,6 +5,7 @@ import { pollResources } from './resourceManager.js';
 import { getStaticData } from './resourceManager.js';
 import { getPreloadPath, getUIPath } from './pathResolver.js';
 import { createTray } from './tray.js';
+import { createMenu } from './menu.js';
 
 
 app.on('ready', () => {
@@ -26,6 +27,7 @@ app.on('ready', () => {
   });
   createTray(win);
   handleCloseEvents(win);
+  createMenu(win);
 });
 
 
