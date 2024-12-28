@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Chart } from './Chart';
 
 function App() {
+  const staticData = useStaticData();
   const statistics = useStatistics(80);
   const [activeView, setActiveView] = useState<View>('CPU');
   const cpuUsages = useMemo(
@@ -53,6 +54,18 @@ function App() {
       </p>
     </>
   )
+}
+
+function useStaticData() {
+  const [staticData, setStaticData] = useState<StaticData | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setStaticData(await window.electron.getStaticData());
+    })();
+  }, []);
+
+  return staticData;
 }
 
 export default App
