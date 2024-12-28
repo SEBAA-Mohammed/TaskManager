@@ -4,7 +4,7 @@ import { BaseChart } from './BaseChart';
 export type ChartProps = {
   data: number[];
   maxDataPoints: number;
-//   selectedView: 'CPU' | 'RAM' | 'STORAGE';
+  selectedView: 'CPU' | 'RAM' | 'STORAGE';
 };
 
 // export const COLOR_MAP = {

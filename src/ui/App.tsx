@@ -38,23 +38,64 @@ function App() {
   return (
     <>
       <div>
-        <div style={{height:140, width: 700}}>
-            <Chart data={activeUsages} maxDataPoints={20}/>
+      <div className="main">
+        <div>
+          <SelectOption
+            onClick={() => setActiveView('CPU')}
+            title="CPU"
+            view="CPU"
+            subTitle={staticData?.cpuModel ?? ''}
+            data={cpuUsages}
+          />
+          <SelectOption
+            onClick={() => setActiveView('RAM')}
+            title="RAM"
+            view="RAM"
+            subTitle={(staticData?.totalMemoryGB.toString() ?? '') + ' GB'}
+            data={ramUsages}
+          />
+          <SelectOption
+            onClick={() => setActiveView('STORAGE')}
+            title="STORAGE"
+            view="STORAGE"
+            subTitle={(staticData?.totalStorage.toString() ?? '') + ' GB'}
+            data={storageUsages}
+          />
+        </div>
+        <div className="mainGrid">
+          <Chart
+            selectedView={activeView}
+            data={activeUsages}
+            maxDataPoints={10}
+          />
         </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-       
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      
     </>
   )
 }
+
+function SelectOption(props: {
+  title: string;
+  view: View;
+  subTitle: string;
+  data: number[];
+  onClick: () => void;
+}) {
+  return (
+    <button className="selectOption" onClick={props.onClick}>
+      <div className="selectOptionTitle">
+        <div>{props.title}</div>
+        <div>{props.subTitle}</div>
+      </div>
+      <div className="selectOptionChart">
+        <Chart selectedView={props.view} data={props.data} maxDataPoints={10} />
+      </div>
+    </button>
+  );
+}
+
 
 function useStaticData() {
   const [staticData, setStaticData] = useState<StaticData | null>(null);
